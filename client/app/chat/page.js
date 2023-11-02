@@ -3,17 +3,18 @@ import Image from 'next/image'
 import { useState } from 'react'
 import io from 'socket.io-client'
 import Link from "next/link";
+import Chat from '@/components/chat';
 
 const socket = io.connect("http://localhost:3001")
 
-export default function Chat() {
+export default function Chats() {
 
   const[username, setUsername] = useState("")
   const[room, setRoom] = useState("")
 
   const joinRoom = () =>{
     if(username !== "" && room !== ""){
-        
+        socket.emit("join_room", room)
     }
   }
 
@@ -41,7 +42,9 @@ export default function Chat() {
 
       </input>
       <br></br>
-      <button className='border-solid border-2 border-sky-500'>Join a Room</button>
+      <button className='border-solid border-2 border-sky-500' onClick={joinRoom}>Join a Room</button>
+
+      <Chat socket={socket} username={username} room={room}/>
 
     </main>
   )
