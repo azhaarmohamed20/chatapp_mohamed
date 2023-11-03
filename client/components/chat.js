@@ -15,18 +15,28 @@ export default function Chat({socket, username, room}){
                     new Date(Date.now()).getHours() + 
                     ":" +
                     new Date(Date.now()).getMinutes(),
+                id: Date.now(),
             }
 
             await socket.emit("send_message", messageData)
             setMessageList((list) => [...list, messageData])
+            setCurrentMessage("")
         }
     }
 
-    useEffect(() =>{
-        socket.on("receive_message", (data)=>{
-            setMessageList((list) => [...list, data])
-        })
-    }, [socket])
+    useEffect(() => {
+        const handleReceiveMessage = (data) => {
+            if (!messageList.some((message) => message.id === data.id)) {
+                setMessageList((prevList) => [...prevList, data]);
+            }
+        };
+    
+        socket.on("receive_message", handleReceiveMessage);
+    
+        return () => {
+            socket.off("receive_message", handleReceiveMessage);
+        };
+    }, [messageList]);
 
     return(
         <div>
@@ -61,6 +71,7 @@ export default function Chat({socket, username, room}){
                     onKeyDown={(event) =>{
                         event.key === "Enter" && sendMessage()
                     }}
+                    className="w-[210px] h-[40px] m-[7px] border-solid border-[2px] p-[5px] text-[16px]"
                 />
                 <button onClick={sendMessage}>&#9658;</button>
             </div>
