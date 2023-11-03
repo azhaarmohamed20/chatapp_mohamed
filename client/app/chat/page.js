@@ -12,6 +12,7 @@ export default function Chats() {
   const[username, setUsername] = useState("")
   const[room, setRoom] = useState("")
   const[showChat, setShowChat] = useState(false)
+  const[inputError, setInputError] = useState("")
 
   const joinRoom = () =>{
     if(username !== "" && room !== ""){
@@ -19,6 +20,8 @@ export default function Chats() {
         setShowChat(true)
     }
   }
+
+ 
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
@@ -34,20 +37,26 @@ export default function Chats() {
         <br></br>
         <input 
           type='text' 
+          id='name'
           placeholder='John...' 
           onChange={(event) => {
               setUsername(event.target.value)
           }} 
+          required
           className='rounded-xl border-2 border-sky-500  placeholder:text-center'>
         </input>
         <br></br>
         <input 
           type='text' 
+          id='room'
           placeholder='Room ID' 
           className='rounded-xl border-2 border-sky-500 placeholder:text-center' 
           onChange={(event) => {
               setRoom(event.target.value)
-          }} >
+          }} 
+          required
+          >
+          
 
         </input>
         <br></br>
