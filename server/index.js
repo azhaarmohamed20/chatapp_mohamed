@@ -4,7 +4,7 @@ const http = require('http')
 const cors = require('cors')
 const{ Server } =require('socket.io')
 const { connect } = require('./db');
-const Message = require('./model/message')
+const Message = require('./model/schema')
 
 app.use(cors())
 
