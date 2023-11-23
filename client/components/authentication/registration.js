@@ -26,7 +26,16 @@ export default function Registration(){
       };
       async function registerUser(event) {
         event.preventDefault();
-    
+        if (!name || !email || !password || !confirmpassword) {
+          setErrorMessage('Please enter all fields');
+          setLoading(false);
+          return;
+        }
+        if(password !== confirmpassword){
+          setErrorMessage('Passwords do not match');
+          setLoading(false)
+          return
+        }
         try {
           const response = await axios.post('http://localhost:5000/api/user', {
             name,

@@ -3,16 +3,41 @@
 import Image from 'next/image'
 import Link from "next/link";
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function SignIn(){
     
-    const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const [showPassword, setShowPassword] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('')
    
     const handleClick = () => setShowPassword(!showPassword)
-    const submitHandler=()=> {}
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (!email || !password) {
+            setErrorMessage('Please enter an email and password');
+            setLoading(false);
+            return;
+          }
+        try {
+            const response = await axios.post('http://localhost:5000/api/user/login', {
+                email,
+                password,
+              }, {
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              });
+
+          console.log('Signing in with email:', email, 'and password:', password);
+          // Reset form fields
+          window.location.href = '/chats';
+        } catch (error) {
+          console.error('Error Occurred:', error.message);
+        }
+      };
 
     return(  
     <div className="flex min-h-screen flex-col items-center p-10 bg-sky-200">
@@ -21,7 +46,7 @@ export default function SignIn(){
         </div>
         <br></br>
         <div className='flex flex-col p-10 bg-white w-full h-full rounded-lg border-[1px]' >
-            <form className='flex flex-col' onSubmit={submitHandler}>
+            <form className='flex flex-col' onSubmit={handleSubmit}>
                 
 
                 <label>Email</label>
@@ -54,7 +79,7 @@ export default function SignIn(){
                 
                 <button 
                 className='mt-[15px] w-full bg-blue-200'
-                onClick={submitHandler}
+                type='submit'
                 >Submit</button>
 
                 <button 
@@ -65,6 +90,17 @@ export default function SignIn(){
                     setPassword("123456")
                 }}
                 >Get Guest User Credentials</button>
+
+                {errorMessage && (
+                        <div className="fixed bottom-0 right-0 p-4 m-4 max-w-sm bg-red-500 text-white rounded">
+                        <p>{errorMessage}</p>
+                        </div>
+                    )}
+                {successMessage && (
+                        <div className="fixed bottom-0 right-0 p-4 m-4 max-w-sm bg-green-500 text-white rounded">
+                        <p>{successMessage}</p>
+                        </div>
+                    )}
             </form>
             
 
