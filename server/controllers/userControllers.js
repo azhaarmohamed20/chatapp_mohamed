@@ -29,6 +29,7 @@ const registerUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            password: user.password,
             pic: user.pic,
             token: generateToken(user._id),
         });
@@ -39,12 +40,12 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 });
 
-const authUseer = asyncHandler(async (req,res) =>{
+const authUser = asyncHandler(async (req,res) =>{
     const {email, password} = req.body
 
     const user = await User.findOne({email})
 
-    if(user && ()){
+    if(user && (await User.matchPassword(password))){
         res.json({
             _id: user._id,
             name: user.name,
@@ -58,4 +59,4 @@ const authUseer = asyncHandler(async (req,res) =>{
     }
 })
 
-module.exports = { registerUser };
+module.exports = { registerUser, authUser };
