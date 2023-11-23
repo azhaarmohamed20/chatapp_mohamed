@@ -1,4 +1,4 @@
-import Login from '@/components/authentication/login';
+import Login from '@/components/authentication/registration';
 import Image from 'next/image'
 import Link from "next/link";
 
