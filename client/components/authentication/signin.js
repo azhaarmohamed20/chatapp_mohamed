@@ -1,11 +1,15 @@
+"use client"
+
 import Image from 'next/image'
 import Link from "next/link";
 import { useState } from 'react';
 
 export default function SignIn(){
     
+    const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+    const [showPassword, setShowPassword] = useState(false)
    
     const handleClick = () => setShowPassword(!showPassword)
     const submitHandler=()=> {}
@@ -19,6 +23,13 @@ export default function SignIn(){
         <div className='flex flex-col p-10 bg-white w-full h-full rounded-lg border-[1px]' >
             <form className='flex flex-col'>
                 
+                <label>Name</label>
+                <input 
+                className='border-solid border-black border-[2px] text-center' 
+                placeholder='Enter your name'
+                onChange={(e) => setName(e.target.value)}
+                required
+                ></input>
 
                 <label>Email</label>
                 <input 
