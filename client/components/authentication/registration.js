@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function Login(){
+export default function Registration(){
 
     
     const [name, setName] = useState()
