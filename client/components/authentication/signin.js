@@ -21,18 +21,12 @@ export default function SignIn(){
         </div>
         <br></br>
         <div className='flex flex-col p-10 bg-white w-full h-full rounded-lg border-[1px]' >
-            <form className='flex flex-col'>
+            <form className='flex flex-col' onSubmit={submitHandler}>
                 
-                <label>Name</label>
-                <input 
-                className='border-solid border-black border-[2px] text-center' 
-                placeholder='Enter your name'
-                onChange={(e) => setName(e.target.value)}
-                required
-                ></input>
 
                 <label>Email</label>
                 <input 
+                value={email}
                 className='border-solid border-black border-[2px] text-center' 
                 placeholder='Enter your email'
                 onChange={(e) => setEmail(e.target.value)}
@@ -42,6 +36,7 @@ export default function SignIn(){
 
                 <label>Password</label>
                 <input 
+                value={password}
                 className='border-solid border-black border-[2px] text-center' 
                 placeholder='Enter your Password'
                 onChange={(e) => setPassword(e.target.value)}
@@ -59,8 +54,17 @@ export default function SignIn(){
                 
                 <button 
                 className='mt-[15px] w-full bg-blue-200'
-                oncClick={submitHandler}
+                onClick={submitHandler}
                 >Submit</button>
+
+                <button 
+                className='mt-[15px] w-full bg-red-200'
+                onClick={(e) =>{
+                    e.preventDefault()
+                    setEmail("guest@example.com")
+                    setPassword("123456")
+                }}
+                >Get Guest User Credentials</button>
             </form>
             
 
