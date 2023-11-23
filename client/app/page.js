@@ -19,7 +19,7 @@ export default function Home() {
             <p>Create a Account</p>
           </div>
           <div className='flex justify-center gap-[20px]' >
-            <Link href="/login" className='rounded-none bg-gray-200 items-center'>Login</Link>
+            <Link href="/register" className='rounded-none bg-gray-200 items-center'>Login</Link>
             <Link  href="/signup" className='rounded-none bg-gray-200 items-center'>Sign Up</Link>
           </div>
           
