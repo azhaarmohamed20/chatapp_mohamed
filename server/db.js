@@ -1,26 +1,22 @@
 const { MongoClient } = require('mongodb');
 const assert = require('assert');
+const { default: mongoose } = require('mongoose');
 require('dotenv').config();
 
 const url = process.env.DB_HOST;
 const dbName = 'chatapp';
 
-const client = new MongoClient(url);
 
 async function connect() {
+    const client = new MongoClient(url);
+
     try {
         await client.connect();
         console.log("Connected successfully to the MongoDB server");
-
-        const db = client.db(dbName);
-
-        // Perform operations with the database here
-
+        return client;
     } catch (err) {
         console.error("Error connecting to MongoDB:", err);
-    } finally {
-        // Close the connection when you're done with it
-        await client.close();
+        throw err;
     }
 }
 
