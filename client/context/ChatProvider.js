@@ -4,7 +4,11 @@ import { useState, createContext, useContext, useEffect } from 'react';
 export const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
+  const [selectedChat, setSelectedChat] = useState();
   const [user, setUser] = useState();
+  const [notification, setNotification] = useState([]);
+  const [chats, setChats] = useState();
+
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -16,7 +20,14 @@ export const ChatProvider = ({ children }) => {
   }, []);
 
   return (
-    <ChatContext.Provider value={{ user, setUser}}>
+    <ChatContext.Provider value={{  selectedChat,
+      setSelectedChat,
+      user,
+      setUser,
+      notification,
+      setNotification,
+      chats,
+      setChats,}}>
       {user &&children}
     </ChatContext.Provider>
   );
