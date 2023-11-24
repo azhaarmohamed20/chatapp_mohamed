@@ -23,6 +23,13 @@ export default function SideDrawer() {
 
     const { user } = useChatState();
 
+    const logoutHandler = () =>{
+        localStorage.removeItem('userInfo')
+        window.location.reload("/")
+    }
+
+
+
     return (
         <>
         <ChakraProvider>
@@ -48,7 +55,7 @@ export default function SideDrawer() {
                                 <MenuItem>My Profile</MenuItem>{" "}
                             </ProfileModel>
                             <MenuDivider></MenuDivider>
-                            <MenuItem>Logout</MenuItem>
+                            <MenuItem onClick={logoutHandler}>Logout</MenuItem>
                         </MenuList>
                     </Menu>
                 </div>
