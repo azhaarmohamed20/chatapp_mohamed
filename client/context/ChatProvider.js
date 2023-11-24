@@ -1,31 +1,28 @@
 "use client"
-import { useState } from 'react';
-const { createContext, useContext, useEffect} = require("react");
+import { useState, createContext, useContext, useEffect } from 'react';
 
-const ChatContext = createContext();
+export const ChatContext = createContext();
 
-const ChatProvider = ({ children }) => {
-    const [user, setUser] = useState();
-    useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        
-        if (!userInfo){
-            window.location.href = "/";
-        }
-      }, []);
-    
-    return (
-        <ChatContext.Provider value={{user, setUser}}>
-            {children}
-        </ChatContext.Provider>
-    )
-}
+export const ChatProvider = ({ children }) => {
+  const [user, setUser] = useState();
 
-export const ChatState = () => {
-    return useContext(ChatContext);
-}
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    setUser(userInfo);
+    console.log(user)
+    if (!userInfo) {
+      window.location.href = "/";
+    }
+  }, []);
 
+  return (
+    <ChatContext.Provider value={{ user, setUser}}>
+      {user &&children}
+    </ChatContext.Provider>
+  );
+};
 
-
-
-export default ChatProvider;
+export const useChatState = () => {
+    const { user } = useContext(ChatContext)
+    return { user };
+  };
