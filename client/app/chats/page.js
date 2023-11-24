@@ -2,24 +2,29 @@
 import SideDrawer from '@/components/SideDrawer';
 import MyChats from '@/components/myChats';
 import ChatBox from '@/components/ChatBox';
-import Image from 'next/image'
-import Link from "next/link";
-import { useEffect } from 'react';
-import { ChatState } from '@/context/ChatProvider';
+import { ChatProvider, useChatState } from '@/context/ChatProvider';
+import { ChakraProvider, CSSReset } from '@chakra-ui/react';
+import { extendTheme } from '@chakra-ui/react'
 
-const ChatsPage = () =>{
-  
-  const { user } = ChatState()
+const ChatsPage = () => {
+ 
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center p-10 bg-sky-200">
-       {user && <SideDrawer/>}
-       <div>
-        {user && <MyChats />}
-        {user && <ChatBox />}
+  
+    <ChatProvider>
+      <ChakraProvider>
+        <div className="flex flex-col bg-sky-200">
+          <CSSReset />
+          <SideDrawer />
+          <div className='flex justify-between w-full h-[91.5vh] p-[10px]'>
+            <MyChats />
+            <ChatBox />
+          </div>
+        </div>
+      </ChakraProvider>
+    </ChatProvider>
+  
+  );
+};
 
-       </div>
-    </div>
-  )
-}
 export default ChatsPage;
