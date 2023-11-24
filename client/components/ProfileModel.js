@@ -1,5 +1,6 @@
 "use client"
 import { Button } from "@chakra-ui/button";
+import { Work_Sans } from 'next/font/google'
 import { useDisclosure } from "@chakra-ui/hooks";
 import {
     Modal,
@@ -17,8 +18,8 @@ import { ViewIcon } from "@chakra-ui/icons";
 
 const ProfileModel = ({user, children}) => {
     const{isOpen, onOpen, onClose} = useDisclosure();
-
-    console.log(user)
+    
+    
 
     return  (
         <>
@@ -38,26 +39,27 @@ const ProfileModel = ({user, children}) => {
                         <ModalHeader
                             fontSize="40px"
                             d="flex"
-                            justifyContent="center"
+                            textAlign={"center"}
                         >{ user.data.name}
                         </ModalHeader>
                         <ModalCloseButton />
                         <ModalBody
                             d="flex"
-                            flexDir="column"
                             alignItems={"center"}
                             justifyContent={"space-between"}
                         >
                                 <Image
+                                d="flex"
                                 borderRadius="full"
                                 boxSize="150px"
+                                margin={"auto"}
                                 src={user.data.pic}
                                 alt={user.data.name}
                                 />
                                 
                                 <Text
                                 fontSize={{ base: "28px", md: "30px" }}
-                                fontFamily="Work sans"
+                                textAlign={"center"}
                                 >
                                 Email: {user.data.email}
                                 </Text>
