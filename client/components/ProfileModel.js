@@ -60,6 +60,7 @@ const ProfileModel = ({user, children}) => {
                                 <Text
                                 fontSize={{ base: "28px", md: "30px" }}
                                 textAlign={"center"}
+                                padding={"20px"}
                                 >
                                 Email: {user.data.email}
                                 </Text>
