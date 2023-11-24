@@ -46,9 +46,9 @@ export default function Registration(){
               'Content-Type': 'application/json'
             }
           });
-    
           const data = response.data;
-    
+          localStorage.setItem("userInfo", JSON.stringify(response));
+
           console.log('Registration Successful:', data);
           
           // Reset form fields

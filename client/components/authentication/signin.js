@@ -32,6 +32,7 @@ export default function SignIn(){
               });
 
           console.log('Signing in with email:', email, 'and password:', password);
+          localStorage.setItem("userInfo", JSON.stringify(response));
           // Reset form fields
           window.location.href = '/chats';
         } catch (error) {
