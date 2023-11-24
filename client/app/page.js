@@ -6,10 +6,16 @@ import { useEffect } from 'react';
 
 export default function Home() {
 
-
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    
+    if (userInfo) {
+      window.location.href = "/chats";
+    }
+  }, []);
 
   return (
-    <ChatProvider>
+    
       <div className="flex min-h-screen flex-col items-center p-10 m-auto">
         <h1 className='text-[18px]'>Chat App</h1>
         <br></br>
@@ -34,6 +40,6 @@ export default function Home() {
         </div>
         
       </div>
-    </ChatProvider>
+    
   )
 }
