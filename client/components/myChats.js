@@ -55,7 +55,7 @@ export default function MyChats(){
             alignItems="center"
             p={3}
             bg="white"
-            w={{ base: "100%", md: "31%" }}
+            w={{ base: "auto", md: "31%" }}
             borderRadius="lg"
             borderWidth="1px"
         >
@@ -69,7 +69,7 @@ export default function MyChats(){
                 justifyContent="space-between"
                 alignItems="center"
             >
-                MyChats
+                My Chats
                 <GroupChatModel>
                     <Button
                     d="flex"
