@@ -1,7 +1,8 @@
 "use client"
 import { useToast } from "@chakra-ui/react";
 import { useChatState } from "../context/ChatProvider"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import axios from "axios";
 
 export default function MyChats(){
 
@@ -16,15 +17,13 @@ export default function MyChats(){
     const toast = useToast();
 
     const fetchChats = async () => {
-        // console.log(user._id);
         try {
           const config = {
             headers: {
-              Authorization: `Bearer ${user.token}`,
+              Authorization: `Bearer ${user.data.token}`,
             },
           };
-    
-          const { data } = await axios.get("/api/chat", config);
+          const { data } = await axios.get(`http://localhost:5000/api/chat`, config);
           setChats(data);
         } catch (error) {
           toast({
@@ -37,6 +36,11 @@ export default function MyChats(){
           });
         }
       };
+
+    useEffect(() => {
+        setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
+        fetchChats();
+    }, []);
 
     return(
         <div>

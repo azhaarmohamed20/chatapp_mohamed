@@ -7,13 +7,13 @@ export const ChatProvider = ({ children }) => {
   const [selectedChat, setSelectedChat] = useState();
   const [user, setUser] = useState();
   const [notification, setNotification] = useState([]);
-  const [chats, setChats] = useState();
+  const [chats, setChats] = useState([]);
 
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     setUser(userInfo);
-    console.log(user)
+    
     if (!userInfo) {
       window.location.href = "/";
     }
@@ -28,7 +28,7 @@ export const ChatProvider = ({ children }) => {
       setNotification,
       chats,
       setChats,}}>
-      {user &&children}
+      {user && children}
     </ChatContext.Provider>
   );
 };
