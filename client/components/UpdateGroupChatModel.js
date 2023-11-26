@@ -22,7 +22,7 @@ import { useChatState } from "../context/ChatProvider";
 import UserBadgeItem from "./UserBadgeItem"
 import UserListItem from "./UserListItem";
 
-const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
+const UpdateGroupChatModal = ({  fetchAgain, setFetchAgain }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [groupChatName, setGroupChatName] = useState();
   const [search, setSearch] = useState("");
@@ -113,7 +113,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
       return;
     }
 
-    if (selectedChat.groupAdmin._id !== user._id) {
+    if (selectedChat.groupAdmin._id !== user.data._id) {
       toast({
         title: "Only admins can add someone!",
         status: "error",
@@ -158,16 +158,17 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   };
 
   const handleRemove = async (user1) => {
-    if (selectedChat.groupAdmin._id !== user._id && user1._id !== user._id) {
-      toast({
-        title: "Only admins can remove someone!",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-      return;
-    }
+    if (selectedChat.groupAdmin._id !== user.data._id && user1._id !== user.data._id) {
+        toast({
+          title: "Only admins can remove someone!",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        return;
+      }
+    
 
     try {
       setLoading(true);
@@ -184,15 +185,16 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         },
         config
       );
-
-      user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
+      console.log("Response data:", data);
+      user1._id === user.data._id ? setSelectedChat() : setSelectedChat(data);
       setFetchAgain(!fetchAgain);
-      fetchMessages();
+      //fetchMessages();
       setLoading(false);
     } catch (error) {
+        console.log("Error occurred:", error);
       toast({
         title: "Error Occured!",
-        description: error.response.message,
+        description: error.response,
         status: "error",
         duration: 5000,
         isClosable: true,
