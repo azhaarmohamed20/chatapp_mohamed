@@ -212,7 +212,6 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         <ModalContent>
           <ModalHeader
             fontSize="35px"
-            fontFamily="Work sans"
             d="flex"
             justifyContent="center"
           >
@@ -231,23 +230,27 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                 />
               ))}
             </Box>
-            <FormControl d="flex">
-              <Input
-                placeholder="Chat Name"
-                mb={3}
-                value={groupChatName}
-                onChange={(e) => setGroupChatName(e.target.value)}
-              />
-              <Button
-                variant="solid"
-                colorScheme="teal"
-                ml={1}
-                isLoading={renameloading}
-                onClick={handleRename}
-              >
-                Update
-              </Button>
-            </FormControl>
+               <FormControl display={"flex"}>
+                <Input
+                    placeholder="Chat Name"
+                    mb={3}
+                    value={groupChatName}
+                    onChange={(e) => setGroupChatName(e.target.value)}
+                    h="40px"
+                />
+                
+                <Button
+                    variant="solid"
+                    colorScheme="teal"
+                    ml={1}
+                    isLoading={renameloading}
+                    onClick={handleRename}
+                    h="40px"
+                >
+                    Update
+                </Button>
+            </FormControl> 
+            <br></br>
             <FormControl>
               <Input
                 placeholder="Add User to group"
