@@ -8,7 +8,7 @@ import ChatLoading from "./ChatLoading";
 import { getSender } from "@/config/ChatLogics";
 import GroupChatModel from "./GroupChatModel";
 
-export default function MyChats(){
+export default function MyChats({ fetchAgain , setFetchAgain }) {
 
     const[loggedUser, setLoggedUser] = useState();
     const {
@@ -46,7 +46,7 @@ export default function MyChats(){
         setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
         console.log(chats)
         fetchChats();
-    }, []);
+    }, [fetchAgain]);
 
     return(
         <Box

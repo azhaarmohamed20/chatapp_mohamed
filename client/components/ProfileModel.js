@@ -19,7 +19,10 @@ import { ViewIcon } from "@chakra-ui/icons";
 const ProfileModel = ({user, children}) => {
     const{isOpen, onOpen, onClose} = useDisclosure();
     
-    
+    console.log(user)
+    const name =  user.name|| user.data?.name 
+    const pic = user.pic || user.data?.pic
+    const email = user.email || user.data?.email
 
     return  (
         <>
@@ -40,7 +43,7 @@ const ProfileModel = ({user, children}) => {
                             fontSize="40px"
                             d="flex"
                             textAlign={"center"}
-                        >{ user.data.name}
+                        >{name}
                         </ModalHeader>
                         <ModalCloseButton />
                         <ModalBody
@@ -53,8 +56,8 @@ const ProfileModel = ({user, children}) => {
                                 borderRadius="full"
                                 boxSize="150px"
                                 margin={"auto"}
-                                src={user.data.pic}
-                                alt={user.data.name}
+                                src={pic}
+                                alt={name}
                                 />
                                 
                                 <Text
@@ -62,7 +65,7 @@ const ProfileModel = ({user, children}) => {
                                 textAlign={"center"}
                                 padding={"20px"}
                                 >
-                                Email: {user.data.email}
+                                Email: {email}
                                 </Text>
                         </ModalBody>
                         <ModalFooter>
