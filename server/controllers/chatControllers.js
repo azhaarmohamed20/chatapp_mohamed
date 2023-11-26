@@ -49,22 +49,27 @@ const accessChat = asyncHandler (async (req, res) => {
 
 const fetchChats = asyncHandler (async (req, res) => {
     
-    
     try {
-        Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
+        Chat.find({
+            $or: [
+                { users: { $elemMatch: { $eq: req.user._id } } }, // Individual chats
+                { isGroupChat: true }, // Group chats
+            ],
+        })
             .populate("users", "-password")
             .populate("groupAdmin", "-password")
             .populate("latestMessage")
-                .sort({ updatedAt: -1 })
+            .sort({ updatedAt: -1 })
             .then(async (results) => {
                 results = await User.populate(results, {
                     path: "latestMessage.sender",
                     select: "name pic email",
-                })
-                res.status(200).send(results)
-            })
+                });
+                res.status(200).send(results);
+            });
     } catch (error) {
-        
+        res.status(400);
+        throw new Error(error.message);
     }
 })
 
