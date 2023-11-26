@@ -1,5 +1,5 @@
 "use Client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { MdSearch } from 'react-icons/md';
 import { Button } from "@chakra-ui/button";
 import axios from "axios";
@@ -36,6 +36,7 @@ export default function SideDrawer() {
 
     const {
         setSelectedChat,
+        selectedChat,
         user,
         chats,
         setChats,
@@ -86,34 +87,40 @@ export default function SideDrawer() {
         }
       };
 
-      const accessChat = async (userId) => {
-        console.log(userId);
-    
-        try {
-          setLoadingChat(true);
-          const config = {
-            headers: {
-              "Content-type": "application/json",
-              Authorization: `Bearer ${user.data.token}`,
-            },
-          };
-          const { data } = await axios.post(`http://localhost:5000/api/chat`, { userId }, config);
-    
-          if (!chats?.find((c) => c._id === data._id)) setChats([data, ...chats]);
-          setSelectedChat(data);
-          setLoadingChat(false);
-          onClose();
-        } catch (error) {
-          toast({
-            title: "Error fetching the chat",
-            description: error.message,
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-            position: "bottom-left",
-          });
+    const accessChat = async (userId, chats) => {
+
+      try {
+        setLoadingChat(true);
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${user.data.token}`,
+          },
+        };
+        const { data } = await axios.post(`http://localhost:5000/api/chat`, { userId }, config);
+        
+
+
+        if (!chats.find((c) => c._id === data._id)){
+          setChats([data, ...chats]);
         }
-      };
+        setSelectedChat(data);
+        setLoadingChat(false);
+        onClose();
+      } catch (error) {
+        toast({
+          title: "Error fetching the chat",
+          description: error.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom-left",
+        });
+      }
+    };
+    useEffect(() => {
+      console.log(chats);
+    }, [chats]);
       
 
     return (
@@ -161,7 +168,7 @@ export default function SideDrawer() {
                                         <UserListItem
                                         key={user._id}
                                         user={user}
-                                        handleFunction={() => accessChat(user._id)}
+                                        handleFunction={() => accessChat(user._id, chats)}
                                         />
                                     ))
                                     )}

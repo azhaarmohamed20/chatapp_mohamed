@@ -34,6 +34,5 @@ export const ChatProvider = ({ children }) => {
 };
 
 export const useChatState = () => {
-    const { user } = useContext(ChatContext)
-    return { user };
+    return useContext(ChatContext);
   };
