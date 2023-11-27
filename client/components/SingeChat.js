@@ -8,14 +8,17 @@ import ProfileModel from "./ProfileModel";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ScrollableChat from "./ScrollableChat";
+import { io } from "socket.io-client";
 
+var socket, selectedChatCompare;
 
 export default function SingleChat({fetchAgain, setFetchAgain}) {
-    const { user, selectedChat, socket, onlineUsers } = useChatState();
+    const { user, selectedChat, onlineUsers } = useChatState();
 
     const[messages, setMessages] = useState([])
     const [loading, setLoading] = useState(false)
     const [newMessage, setNewMessage] = useState("")
+    const [socketConnected, setSocketConnected] = useState(false)
     const toast = useToast();
 
     const sendMessage = async (event) => {
@@ -40,6 +43,7 @@ export default function SingleChat({fetchAgain, setFetchAgain}) {
             
                 console.log(data)
                 setNewMessage("")
+                socket.emit("new message", data)
                 setMessages([...messages, data])
 
             } catch (error) {
@@ -56,6 +60,12 @@ export default function SingleChat({fetchAgain, setFetchAgain}) {
         }
     }
 
+    useEffect(() => {
+        socket = io("http://localhost:5000")
+        socket.emit("setup", user.data)
+        socket.on("connection", () => setSocketConnected(true))
+    })
+
     const fetchMessages = async () => {
         if(!selectedChat) return;
 
@@ -69,9 +79,11 @@ export default function SingleChat({fetchAgain, setFetchAgain}) {
             setLoading(true)
 
             const {data} = await axios.get(`http://localhost:5000/api/message/${selectedChat._id}`, config)
-            console.log(messages)
+
             setMessages(data)
             setLoading(false)
+
+            socket.emit('join chat', selectedChat._id)
         } catch (error) {
             toast({
                 title: "Error Occured",
@@ -86,7 +98,20 @@ export default function SingleChat({fetchAgain, setFetchAgain}) {
 
     useEffect(() => {
         fetchMessages()
+
+        selectedChatCompare = selectedChat
     }, [selectedChat])
+
+    useEffect(() => {
+        socket.on('message recieved', (newMessageRecieved) => {
+            if(!selectedChatCompare || selectedChatCompare._id !== newMessageRecieved.chat._id) {
+                // something
+            } else {
+                setMessages([...messages, newMessageRecieved])
+            }
+        })
+    })
+
 
     const typingHandler = (e) => {
         setNewMessage(e.target.value)
