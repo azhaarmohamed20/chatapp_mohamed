@@ -114,14 +114,15 @@ export default function Registration(){
                 className="bg-gray-300 hover:bg-gray-400 rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer text-center " htmlFor="toggle">{showPassword?'hide':'show'}</label>
                 <br></br>
             
-                <label>Profile Picture</label>
+                {/* Put aside till logi works  */}
+                {/* <label>Profile Picture</label>
                 <input 
                 type='file'
                 accept='image/*'
                 className='border-solid border-black border-[2px] text-center' 
                 placeholder='Confirm your Password'
                 onChange={handleFileUpload}
-                ></input>
+                ></input> */}
 
                 <button 
                 className='mt-[15px] w-full bg-blue-200'
@@ -142,8 +143,8 @@ export default function Registration(){
             </form>
 
             <br></br>
-            <p className="text-[12px]">Already have a account Sign In</p>
-            <Link className="text-[12px]" href="/signin">Sign In</Link>
+            <p className="text-[12px] font-bold">Already have a account Sign In</p>
+            <Link className="text-[12px] font-bold" href="/signin">Sign In</Link>
         </div>
     </div>
     )

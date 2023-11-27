@@ -17,23 +17,21 @@ export default function Home() {
   return (
     
       <div className="flex min-h-screen flex-col items-center p-10 m-auto">
-        <h1 className='text-[18px]'>Chat App</h1>
+        <h1 className='text-[40px] font-bold'>Chat App</h1>
         <br></br>
-        <Link href="/chat" className='rounded bg-gray-300 justify-center' >Chat</Link>
-        <br></br>
-        <div className='flex flex-row'>
-          <div className='flex flex-row w-[500px] gap-[20px]'>
+        <div className='flex flex-row h-[250px]'>
+          <div className='flex flex-row w-[500px] gap-[20px] m-auto'>
             <br></br>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt doloremque totam inventore! Aliquam id adipisci, dicta, numquam reprehenderit animi saepe minus amet veritatis, iusto odio laboriosam. Quae illum officiis necessitatibus.</p>
+            <p className='text-[25px] font-bold'>This is my Chat App create an account and start chatting</p>
           </div>
           
-          <div className='flex flex-col bg-gray-400 w-[500px] justify-center gap-[20px]'>
+          <div className='flex flex-col bg-indigo-200 w-[500px] justify-center gap-[20px]'>
             <div className='flex justify-center gap-[20px]'>
-              <p>Create a Account</p>
+              <p className='text-[25px] font-bold'>Create an Account</p>
             </div>
-            <div className='flex justify-center gap-[20px]' >
-              <Link href="/register" className='rounded-none bg-gray-200 items-center'>Login</Link>
-              <Link  href="/signup" className='rounded-none bg-gray-200 items-center'>Sign Up</Link>
+            <div className='flex justify-center text-[25px] gap-[20px] text-center' >
+              <Link href="/register" className='rounded-lg bg-indigo-300 w-[100px] h-[40px] text-center items-center'>Login</Link>
+              <Link  href="/signin" className='rounded-lg bg-indigo-300 w-[140px] h-[40px] text-center items-center'>Sign in</Link>
             </div>
             
           </div>

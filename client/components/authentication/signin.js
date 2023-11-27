@@ -91,6 +91,14 @@ export default function SignIn(){
                     setPassword("123456")
                 }}
                 >Get Guest User Credentials</button>
+                <button 
+                className='mt-[15px] w-full bg-red-200'
+                onClick={(e) =>{
+                    e.preventDefault()
+                    setEmail("guest2@example.com")
+                    setPassword("123456")
+                }}
+                >Get Guest User2 Credentials</button>
 
                 {errorMessage && (
                         <div className="fixed bottom-0 right-0 p-4 m-4 max-w-sm bg-red-500 text-white rounded">
