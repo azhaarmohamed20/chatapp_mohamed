@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  background-color: rgb(179, 229, 252)
+  ;
+}
+
+
+
+body {
+  font-family: "Work Sans", sans-serif;
+}
+
+
+#you{
+  justify-content: flex-start;
+}
+
+#you .message-content{
+  justify-content: flex-start;
+  background-color: lightgreen ;
+
+}
+
+#you .message-meta{
+  justify-content: flex-start;
+  margin-left: 5px;
+}
+
+#other{
+  justify-content: flex-end;
+}
+
+#other .message-content{
+  justify-content: flex-end;
+  background-color: lightblue;
+}
+
+#other .message-meta{
+  justify-content: flex-end;
+  margin-right:5px;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(136, 136, 136, 0.281);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
