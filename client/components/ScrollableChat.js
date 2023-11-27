@@ -3,16 +3,24 @@ import ScrollableFeed from "react-scrollable-feed";
 import { Avatar } from "@chakra-ui/avatar";
 import { Tooltip } from "@chakra-ui/tooltip";
 import { useChatState } from "@/context/ChatProvider";
+import { useEffect, useRef } from "react";
 
 export default function ScrollableChat({messages}){
     const {user} = useChatState();
+    const chatContainerRef = useRef(null);
 
+    useEffect(() => {
+      // Scroll to the bottom of the chat container when a new message appears
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }, [messages]);
     
       
 
 
     return(
-        <div>
+        <div
+        ref={chatContainerRef}
+        style={{ maxHeight: "800px", overflowY: "auto" }}>
             <ScrollableFeed>
                 {messages && messages.map((m, i) => (
                     <div className="flex" key={m._id}>
