@@ -118,9 +118,6 @@ export default function SideDrawer() {
         });
       }
     };
-    useEffect(() => {
-      console.log(chats);
-    }, [chats]);
       
 
     return (

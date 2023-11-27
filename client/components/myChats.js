@@ -44,7 +44,6 @@ export default function MyChats({ fetchAgain , setFetchAgain }) {
 
     useEffect(() => {
         setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
-        console.log(chats)
         fetchChats();
     }, [fetchAgain]);
 
