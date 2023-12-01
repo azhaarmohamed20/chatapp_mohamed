@@ -1,14 +1,15 @@
-version: '3.7'
+version: '3.9'
 
 services:
-  database:
-    image: mongo
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-    volumes:
-      - mongodb_data_container:/data/db
+
+  mongodb:
+    image: mongo:latest
+    restart: always
     ports:
-      - 27017:27017
-volumes:
-  mongodb_data_container:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MONGO_INITDB_DATABASE: chatapp
+    volumes:
+      - ./data:/data
