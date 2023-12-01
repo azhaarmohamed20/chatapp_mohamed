@@ -20,7 +20,7 @@ export default function ScrollableChat({messages}){
     return(
         <div
         ref={chatContainerRef}
-        style={{ maxHeight: "500px", overflowY: "auto" }}>
+        style={{ maxHeight: "400px", overflowY: "auto" }}>
             <ScrollableFeed>
                 {messages && messages.map((m, i) => (
                     <div className="flex" key={m._id}>
